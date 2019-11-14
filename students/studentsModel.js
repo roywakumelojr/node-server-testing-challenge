@@ -1,38 +1,43 @@
-const db = require("../data/dbConfig.js");
+const db = require('../data/dbConfig')
 
 module.exports = {
-  insert,
+  find,
+  findById,
+  findSteps,
+  add,
   update,
-  remove,
-  getAll,
-  findById
-};
-
-function insert(student) {
-  return (
-    db("students")
-      .insert(student, "id")
-      .then(ids => {
-        const id = ids[0];
-        return db("students")
-          .where({ id })
-          .first();
-      })
-  );
+  remove
 }
 
-async function update(id, changes) {
-  return null;
-}
-
-function remove(id) {
-  return null;
-}
-
-function getAll() {
-  return db("students");
+function find() {
+  return db('students')
 }
 
 function findById(id) {
-  return null;
+  return db('students')
+  .where({ id }).first();
+}
+
+function findSteps(id) {
+  return db("steps as S")
+  .join("students as sc", "sc.id", "===", "S.scheme_id")
+  .where({ scheme_id: id })
+  .select("S.id", "sc.scheme_name", "S.step_number", "S.instructions");
+}
+
+function add(students) {
+  return db("students")
+  .insert(students);          
+}
+
+function update(changes, id) {
+  return db("students")
+  .update(changes)
+  .where({ id });      
+}
+
+function remove(id) {
+  return db("students")
+  .delete()
+  .where({ id });      
 }

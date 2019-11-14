@@ -1,23 +1,23 @@
 const db = require("../data/dbConfig.js");
 
-const { insert } = require("./studentsModel.js");
+const { add } = require("./studentsModel.js");
 
 describe("students model", function() {
-  describe("insert()", function() {
+  describe("add()", function() {
     beforeEach(async () => {
       await db("students").truncate();
     });
 
-    it("should insert a student", async function() {
-      await insert({ name: "jerry" });
+    it("should add a student", async function() {
+      await add({ name: "jerry" });
 
       const students = await db("students");
       expect(students).toHaveLength(1);
     });
 
-    it("should insert the provided student", async function() {
-      await insert({ name: "jerry" });
-      await insert({ name: "tom" });
+    it("should add the provided student", async function() {
+      await add({ name: "jerry" });
+      await add({ name: "tom" });
 
       const students = await db("students");
 
@@ -26,12 +26,12 @@ describe("students model", function() {
       expect(students[1].name).toBe("tom");r
     });
 
-    it("should return the inserted student", async function() {
-      let student = await insert({ name: "jerry" });
+    it("should return the added student", async function() {
+      let student = await add({ name: "jerry" });
       expect(student.name).toBe("jerry");
       expect(student.id).toBeDefined();
 
-      student = await insert({ name: "tom" });
+      student = await add({ name: "tom" });
       expect(student.name).toBe("tom");
       expect(student.id).toBeDefined();
     });
