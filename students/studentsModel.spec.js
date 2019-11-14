@@ -26,14 +26,5 @@ describe("students model", function() {
       expect(students[1].name).toBe("Jerry");
     });
 
-    // it("should return the added student", async function() {
-    //   let student = await add({ name: "tom" });
-    //   expect(student.name).toBe("tom");
-    //   expect(student.id).toBeDefined();
-
-    //   student = await add({ name: "Jerry" });
-    //   expect(student.name).toBe("Jerry");
-    //   expect(student.id).toBeDefined();
-    // });
   });
 });
